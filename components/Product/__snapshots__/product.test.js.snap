@@ -27,9 +27,9 @@ exports[`<Product /> renders and matches the snapshot 1`] = `
         $50.00
       </s>
     </styles__OldPriceTag>
-    <styles__Button>
+    <Component>
       View Product
-    </styles__Button>
+    </Component>
   </styles__ProductStyles>
 </Link>
 `;
