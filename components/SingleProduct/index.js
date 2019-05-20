@@ -11,6 +11,7 @@ import Icon from "../Icon";
 import { ICONS } from "../../lib/globalIcons";
 import { formatMoney, pickPrice, oldPrice } from "../../lib/formatMoney";
 import AddToCart from "../AddToCart";
+import { getUnique, reduceArray } from '../../lib/arrayUtils';
 
 const SingleProductStyles = styled.div`
   max-width: ${props => props.theme.maxWidth};
@@ -209,12 +210,12 @@ class SingleProduct extends Component {
                       {pickPrice(product.price, product.discounted_price)}
                     </p>
                     <p>{product.description}</p>
-                    {/* <Attributes
+                    <Attributes
                       product={product}
                       clickHandler={this.attributeClickHandler}
                       attributes={this.state.attributes}
-                      payload={data}
-                    /> */}
+                      payload={getUnique(reduceArray(product.attributes), 'attribute_id')}
+                    />
                     <p>
                       {this.state.attributes.Size &&
                         `Selected Size: ${this.state.attributes.Size}`}
