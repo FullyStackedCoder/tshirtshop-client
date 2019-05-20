@@ -142,6 +142,7 @@ class Attributes extends Component {
     return (
       <Query query={ALL_ATTRIBUTES_QUERY}>
         {({data, error, loading}) => {
+          console.log(data);
           return (
               data.attributes.map(attribute => (
               <React.Fragment key={attribute.attribute_id}>

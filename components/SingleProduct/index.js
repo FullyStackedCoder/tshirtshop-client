@@ -204,11 +204,11 @@ class SingleProduct extends Component {
                   {pickPrice(product.price, product.discounted_price)}
                 </p>
                 <p>{product.description}</p>
-                {/* <Attributes
+                <Attributes
                   product={product}
                   clickHandler={this.attributeClickHandler}
                   attributes={this.state.attributes}
-                /> */}
+                />
                 <p>
                   {this.state.attributes.Size &&
                     `Selected Size: ${this.state.attributes.Size}`}
