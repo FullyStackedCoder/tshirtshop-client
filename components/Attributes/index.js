@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
-import AddToCart from "../AddToCart";
 
 const AttributeValuesStyles = styled.div`
   max-width: 100%;
@@ -139,27 +138,41 @@ class Attributes extends Component {
   };
 
   render() {
-    return (
-      <Query query={ALL_ATTRIBUTES_QUERY}>
-        {({data, error, loading}) => {
-          console.log(data);
-          return (
-              data.attributes.map(attribute => (
-              <React.Fragment key={attribute.attribute_id}>
-                <h3>{attribute.name}</h3>
-                <AttributeValuesStyles>
-                  {this.props.product.attributes && this.props.product.attributes.map(att =>
-                    attribute.attribute_id === att.attribute.attribute_id
-                      ? this.renderButtons(attribute, att, this.props)
-                      : ""
-                  )}
-                </AttributeValuesStyles>
-              </React.Fragment>
-              ))
-          );
-        }}
-      </Query>
-    );
+    return this.props.payload.attributes.map(attribute => (
+      <React.Fragment key={attribute.attribute_id}>
+        <h3>{attribute.name}</h3>
+        <AttributeValuesStyles>
+          {this.props.product.attributes &&
+            this.props.product.attributes.map(att =>
+              attribute.attribute_id === att.attribute.attribute_id
+                ? this.renderButtons(attribute, att, this.props)
+                : ""
+            )}
+        </AttributeValuesStyles>
+      </React.Fragment>
+    ));
+
+    // return (
+    //   <Query query={ALL_ATTRIBUTES_QUERY}>
+    //     {({data, error, loading}) => {
+    //       console.log(data);
+    //       return (
+    //           data.attributes.map(attribute => (
+    //           <React.Fragment key={attribute.attribute_id}>
+    //             <h3>{attribute.name}</h3>
+    //             <AttributeValuesStyles>
+    //               {this.props.product.attributes && this.props.product.attributes.map(att =>
+    //                 attribute.attribute_id === att.attribute.attribute_id
+    //                   ? this.renderButtons(attribute, att, this.props)
+    //                   : ""
+    //               )}
+    //             </AttributeValuesStyles>
+    //           </React.Fragment>
+    //           ))
+    //       );
+    //     }}
+    //   </Query>
+    // );
   }
 }
 

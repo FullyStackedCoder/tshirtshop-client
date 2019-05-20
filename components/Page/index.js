@@ -54,13 +54,13 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-size: 62.5%;
 
-    @media only screen and (max-width: ${props => props.theme.bpLargest}) {
+    @media only screen and (max-width: ${theme.bpLargest}) {
       font-size: 56.25%;
     }
-    @media only screen and (max-width: ${props => props.theme.bpMedium}) {
+    @media only screen and (max-width: ${theme.bpMedium}) {
       font-size: 50%;
     }
-    @media only screen and (min-width: ${props => props.theme.bpHuge}) {
+    @media only screen and (min-width: ${theme.bpHuge}) {
       font-size: 75%;
     }
   }

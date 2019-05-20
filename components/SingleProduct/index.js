@@ -93,6 +93,15 @@ const SINGLE_PRODUCT_QUERY = gql`
   }
 `;
 
+const ALL_ATTRIBUTES_QUERY = gql`
+  query ALL_ATTRIBUTES_QUERY {
+    attributes {
+      attribute_id
+      name
+    }
+  }
+`;
+
 const ADD_TO_CART_MUTATION = gql`
   mutation ADD_TO_CART_MUTATION(
     $attributes: String!
@@ -195,11 +204,16 @@ class SingleProduct extends Component {
                   {pickPrice(product.price, product.discounted_price)}
                 </p>
                 <p>{product.description}</p>
-                <Attributes
-                  product={product}
-                  clickHandler={this.attributeClickHandler}
-                  attributes={this.state.attributes}
-                />
+                <Query query={ALL_ATTRIBUTES_QUERY}>
+                  {({ data, error, loading }) => {
+                    <Attributes
+                      product={product}
+                      clickHandler={this.attributeClickHandler}
+                      attributes={this.state.attributes}
+                      payload={data}
+                    />;
+                  }}
+                </Query>
                 <p>
                   {this.state.attributes.Size &&
                     `Selected Size: ${this.state.attributes.Size}`}
