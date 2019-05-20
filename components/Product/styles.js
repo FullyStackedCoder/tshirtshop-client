@@ -70,7 +70,7 @@ export const OldPriceTag = styled.span`
   display: inline-block;
 `;
 
-const TestButton = styled.button`
+export const TestButton = styled.button`
   font-size: 1.5rem;
   font-weight: 300;
   text-transform: uppercase;
