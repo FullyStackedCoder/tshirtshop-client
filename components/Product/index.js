@@ -5,7 +5,6 @@ import { Title, ProductStyles, PriceTag, OldPriceTag, TestButton } from "./style
 import { formatMoney, pickPrice, oldPrice } from "../../lib/formatMoney";
 import { endpointImages } from "../../config";
 import Button from '../Button/styles';
-import { buildSchemaFromTypeDefinitions } from "graphql-tools";
 
 const Product = props => {
   const { product } = props;
