@@ -147,7 +147,7 @@ class Attributes extends Component {
               <React.Fragment key={attribute.attribute_id}>
                 <h3>{attribute.name}</h3>
                 <AttributeValuesStyles>
-                  {this.props.product.attributes.map(att =>
+                  {this.props.product.attributes && this.props.product.attributes.map(att =>
                     attribute.attribute_id === att.attribute.attribute_id
                       ? this.renderButtons(attribute, att, this.props)
                       : ""
