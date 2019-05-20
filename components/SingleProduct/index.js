@@ -249,11 +249,11 @@ class SingleProduct extends Component {
                         />
                       </div>
                     </QuantitySelectorStyles>
-                    <AddToCart
+                    {/* <AddToCart
                       attributes={this.state.attributes}
                       quantity={this.state.quantity}
                       productId={product.product_id}
-                    />
+                    /> */}
                   </div>
                 </SingleProductStyles>
                 )
