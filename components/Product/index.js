@@ -5,7 +5,7 @@ import { Title, ProductStyles, PriceTag, OldPriceTag, TestButton } from "./style
 import { formatMoney, pickPrice, oldPrice } from "../../lib/formatMoney";
 import { endpointImages } from "../../config";
 import Button from '../Button/styles';
-import NewButton from '../Button';
+import { buildSchemaFromTypeDefinitions } from "graphql-tools";
 
 const Product = props => {
   const { product } = props;
@@ -29,7 +29,7 @@ const Product = props => {
         <OldPriceTag>
           <s>{oldPrice(product.price, product.discounted_price)}</s>
         </OldPriceTag>
-        <NewButton block>View Product</NewButton>
+        <buildSchemaFromTypeDefinitions>View Product</buildSchemaFromTypeDefinitions>
       </ProductStyles>
     </Link>
   );
