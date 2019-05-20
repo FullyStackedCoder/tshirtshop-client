@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Product /> renders and matches the snapshot 1`] = `
+<Link
+  href={
+    Object {
+      "pathname": "/product",
+      "query": Object {
+        "id": "1",
+      },
+    }
+  }
+>
+  <styles__ProductStyles>
+    <img
+      alt="Test T-Shirt"
+      src="https://tshirtshop-apollo-prod.herokuapp.com/images/product.jpg"
+    />
+    <styles__Title>
+      Test T-Shirt
+    </styles__Title>
+    <styles__PriceTag>
+      $40.00
+    </styles__PriceTag>
+    <styles__OldPriceTag>
+      <s>
+        $50.00
+      </s>
+    </styles__OldPriceTag>
+    <styles__Button>
+      View Product
+    </styles__Button>
+  </styles__ProductStyles>
+</Link>
+`;
