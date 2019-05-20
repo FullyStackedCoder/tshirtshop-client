@@ -29,7 +29,7 @@ const Product = props => {
         <OldPriceTag>
           <s>{oldPrice(product.price, product.discounted_price)}</s>
         </OldPriceTag>
-        <buildSchemaFromTypeDefinitions>View Product</buildSchemaFromTypeDefinitions>
+        <button>View Product</button>
       </ProductStyles>
     </Link>
   );
