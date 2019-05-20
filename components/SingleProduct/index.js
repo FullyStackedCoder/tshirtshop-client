@@ -206,12 +206,14 @@ class SingleProduct extends Component {
                 <p>{product.description}</p>
                 <Query query={ALL_ATTRIBUTES_QUERY}>
                   {({ data, error, loading }) => {
-                    <Attributes
-                      product={product}
-                      clickHandler={this.attributeClickHandler}
-                      attributes={this.state.attributes}
-                      payload={data}
-                    />;
+                    return (
+                      <Attributes
+                        product={product}
+                        clickHandler={this.attributeClickHandler}
+                        attributes={this.state.attributes}
+                        payload={data}
+                      />
+                    );
                   }}
                 </Query>
                 <p>
