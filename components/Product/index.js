@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import { Title, ProductStyles, PriceTag, OldPriceTag, TestButton } from "./styles";
-import { formatMoney, pickPrice, oldPrice } from "../../lib/formatMoney";
+import { Title, ProductStyles, PriceTag, OldPriceTag } from "./styles";
+import { pickPrice, oldPrice } from "../../lib/formatMoney";
 import { endpointImages } from "../../config";
 import Button from '../Button/styles';
 
@@ -28,7 +28,7 @@ const Product = props => {
         <OldPriceTag>
           <s>{oldPrice(product.price, product.discounted_price)}</s>
         </OldPriceTag>
-        <button>View Product</button>
+        <Button>View Product</Button>
       </ProductStyles>
     </Link>
   );
