@@ -209,12 +209,12 @@ class SingleProduct extends Component {
                       {pickPrice(product.price, product.discounted_price)}
                     </p>
                     <p>{product.description}</p>
-                    <Attributes
+                    {/* <Attributes
                       product={product}
                       clickHandler={this.attributeClickHandler}
                       attributes={this.state.attributes}
                       payload={data}
-                    />
+                    /> */}
                     <p>
                       {this.state.attributes.Size &&
                         `Selected Size: ${this.state.attributes.Size}`}
@@ -249,11 +249,11 @@ class SingleProduct extends Component {
                         />
                       </div>
                     </QuantitySelectorStyles>
-                    {/* <AddToCart
+                    <AddToCart
                       attributes={this.state.attributes}
                       quantity={this.state.quantity}
                       productId={product.product_id}
-                    /> */}
+                    />
                   </div>
                 </SingleProductStyles>
                 )
