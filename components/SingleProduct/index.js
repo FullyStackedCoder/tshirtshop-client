@@ -186,7 +186,7 @@ class SingleProduct extends Component {
                   alt={product.name}
                 />
                 <div className="breakline" />
-                <div className="thumbnails">
+                {/* <div className="thumbnails">
                   {this.thumbnailImages(product).map(thumbnail => (
                     <img
                       key={thumbnail}
@@ -195,7 +195,7 @@ class SingleProduct extends Component {
                       onClick={() => this.setGalleryMainImage(thumbnail)}
                     />
                   ))}
-                </div>
+                </div> */}
               </div>
               <div className="details">
                 <h2 className="heading-secondary">{product.name}</h2>
