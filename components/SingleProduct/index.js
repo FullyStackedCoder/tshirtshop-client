@@ -174,89 +174,91 @@ class SingleProduct extends Component {
           if (!data.product) return <p>No Item Found for {this.props.id}</p>;
           const product = data.product;
           return (
-            <SingleProductStyles>
-              <Head>
-                <title>TShirt Shop | {product.name}</title>
-              </Head>
-              <div className="imageGallery">
-                <img
-                  src={`${endpointImages}${
-                    this.state.thumbnail ? this.state.thumbnail : product.image
-                  }`}
-                  alt={product.name}
-                />
-                <div className="breakline" />
-                <div className="thumbnails">
-                  {this.thumbnailImages(product).map(thumbnail => (
+            <Query query={ALL_ATTRIBUTES_QUERY}>
+              {({ data, error, loading }) => {
+                return (
+                <SingleProductStyles>
+                  <Head>
+                    <title>TShirt Shop | {product.name}</title>
+                  </Head>
+                  <div className="imageGallery">
                     <img
-                      key={thumbnail}
-                      src={`${endpointImages}${thumbnail}`}
+                      src={`${endpointImages}${
+                        this.state.thumbnail
+                          ? this.state.thumbnail
+                          : product.image
+                      }`}
                       alt={product.name}
-                      onClick={() => this.setGalleryMainImage(thumbnail)}
                     />
-                  ))}
-                </div>
-              </div>
-              <div className="details">
-                <h2 className="heading-secondary">{product.name}</h2>
-                <p>
-                  <s>{oldPrice(product.price, product.discounted_price)}</s>{" "}
-                  {pickPrice(product.price, product.discounted_price)}
-                </p>
-                <p>{product.description}</p>
-                <Query query={ALL_ATTRIBUTES_QUERY}>
-                  {({ data, error, loading }) => {
-                    return (
-                      <Attributes
-                        product={product}
-                        clickHandler={this.attributeClickHandler}
-                        attributes={this.state.attributes}
-                        payload={data}
-                      />
-                    );
-                  }}
-                </Query>
-                <p>
-                  {this.state.attributes.Size &&
-                    `Selected Size: ${this.state.attributes.Size}`}
-                </p>
-                <p>
-                  {this.state.attributes.Color &&
-                    `Selected Color: ${this.state.attributes.Color}`}
-                </p>
-                <QuantitySelectorStyles>
-                  <h3>Quantity:</h3>
-                  <div
-                    className="selectors"
-                    name="decrease"
-                    onClick={() => this.setQuantityHandler("decrease")}
-                  >
-                    <Icon
-                      icon={ICONS.CHEVRONDOWN}
-                      size={24}
-                      color="rgba(0,0,0,0.74)"
+                    <div className="breakline" />
+                    <div className="thumbnails">
+                      {this.thumbnailImages(product).map(thumbnail => (
+                        <img
+                          key={thumbnail}
+                          src={`${endpointImages}${thumbnail}`}
+                          alt={product.name}
+                          onClick={() => this.setGalleryMainImage(thumbnail)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="details">
+                    <h2 className="heading-secondary">{product.name}</h2>
+                    <p>
+                      <s>{oldPrice(product.price, product.discounted_price)}</s>{" "}
+                      {pickPrice(product.price, product.discounted_price)}
+                    </p>
+                    <p>{product.description}</p>
+                    <Attributes
+                      product={product}
+                      clickHandler={this.attributeClickHandler}
+                      attributes={this.state.attributes}
+                      payload={data}
+                    />
+                    <p>
+                      {this.state.attributes.Size &&
+                        `Selected Size: ${this.state.attributes.Size}`}
+                    </p>
+                    <p>
+                      {this.state.attributes.Color &&
+                        `Selected Color: ${this.state.attributes.Color}`}
+                    </p>
+                    <QuantitySelectorStyles>
+                      <h3>Quantity:</h3>
+                      <div
+                        className="selectors"
+                        name="decrease"
+                        onClick={() => this.setQuantityHandler("decrease")}
+                      >
+                        <Icon
+                          icon={ICONS.CHEVRONDOWN}
+                          size={24}
+                          color="rgba(0,0,0,0.74)"
+                        />
+                      </div>
+                      <p>{this.state.quantity}</p>
+                      <div
+                        className="selectors"
+                        name="increase"
+                        onClick={() => this.setQuantityHandler("increase")}
+                      >
+                        <Icon
+                          icon={ICONS.CHEVRONUP}
+                          size={24}
+                          color="rgba(0,0,0,0.74)"
+                        />
+                      </div>
+                    </QuantitySelectorStyles>
+                    <AddToCart
+                      attributes={this.state.attributes}
+                      quantity={this.state.quantity}
+                      productId={product.product_id}
                     />
                   </div>
-                  <p>{this.state.quantity}</p>
-                  <div
-                    className="selectors"
-                    name="increase"
-                    onClick={() => this.setQuantityHandler("increase")}
-                  >
-                    <Icon
-                      icon={ICONS.CHEVRONUP}
-                      size={24}
-                      color="rgba(0,0,0,0.74)"
-                    />
-                  </div>
-                </QuantitySelectorStyles>
-                <AddToCart
-                  attributes={this.state.attributes}
-                  quantity={this.state.quantity}
-                  productId={product.product_id}
-                />
-              </div>
-            </SingleProductStyles>
+                </SingleProductStyles>
+                )
+              }}
+            </Query>
           );
         }}
       </Query>
