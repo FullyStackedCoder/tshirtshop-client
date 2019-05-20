@@ -5,6 +5,7 @@ import { Title, ProductStyles, PriceTag, OldPriceTag } from "./styles";
 import { formatMoney, pickPrice, oldPrice } from "../../lib/formatMoney";
 import { endpointImages } from "../../config";
 import Button from '../Button/styles';
+import SickButton from '../SickButton';
 
 const Product = props => {
   const { product } = props;
@@ -28,7 +29,7 @@ const Product = props => {
         <OldPriceTag>
           <s>{oldPrice(product.price, product.discounted_price)}</s>
         </OldPriceTag>
-        <Button>View Product</Button>
+        <SickButton>View Product</SickButton>
       </ProductStyles>
     </Link>
   );
