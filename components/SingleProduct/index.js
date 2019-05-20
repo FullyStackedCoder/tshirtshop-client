@@ -109,15 +109,6 @@ const ADD_TO_CART_MUTATION = gql`
   }
 `;
 
-const ALL_ATTRIBUTES_QUERY = gql`
-  query ALL_ATTRIBUTES_QUERY {
-    attributes {
-      attribute_id
-      name
-    }
-  }
-`;
-
 class SingleProduct extends Component {
   state = {
     thumbnail: "",
@@ -258,4 +249,4 @@ class SingleProduct extends Component {
 }
 
 export default SingleProduct;
-export { SINGLE_PRODUCT_QUERY, ALL_ATTRIBUTES_QUERY };
+export { SINGLE_PRODUCT_QUERY };
