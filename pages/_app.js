@@ -29,4 +29,4 @@ class MyApp extends App {
   }
 }
 
-export default withData(MyApp);
+export default withApolloClient(MyApp);
