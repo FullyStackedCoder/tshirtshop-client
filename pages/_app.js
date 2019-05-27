@@ -2,7 +2,6 @@ import App, { Container } from "next/app";
 import { ApolloProvider } from "react-apollo";
 import withData from "../lib/withData";
 import Page from "../components/Page";
-import withApolloClient from '../lib/with-apollo-client';
 
 class MyApp extends App {
   static async getInitialProps({Component, ctx}) {
