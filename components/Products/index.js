@@ -7,11 +7,13 @@ import Pagination from "../Pagination";
 import { perPage } from "../../config";
 import Departments from "../Departments";
 import Categories from "../Categories";
+import FilterAttributes from "../FilterAttributes";
+import PriceRange from "../PriceRange";
 import Skeleton from "../Skeleton";
 
 const ALL_PRODUCTS_QUERY = gql`
-  query ALL_PRODUCTS_QUERY($offset: Int = 0, $limit: Int = ${perPage}, $departments: [Int] = [], $categories: [Int] = []) {
-    products(offset: $offset, limit: $limit, departments: $departments, categories: $categories) {
+  query ALL_PRODUCTS_QUERY($offset: Int = 0, $limit: Int = ${perPage}, $departments: [Int] = [], $categories: [Int] = [], $searchTerm: String = "", $attributeValues: [String] = [], $minPrice: Float = 0.00, $maxPrice: Float = 0.00) {
+    products(offset: $offset, limit: $limit, departments: $departments, categories: $categories, searchTerm: $searchTerm, attributeValues: $attributeValues, minPrice: $minPrice, maxPrice: $maxPrice) {
       product_id
       name
       description
@@ -38,6 +40,10 @@ const LOCAL_STATE_QUERY = gql`
     }
     userPanelOpen @client
     localCartId @client
+    minPrice @client
+    maxPrice @client
+    localAttributes @client
+    searchTerm @client
   }
 `;
 
@@ -101,6 +107,10 @@ class Items extends Component {
                 categories={payload.data.localCategories.map(category =>
                   parseFloat(category.category_id)
                 )}
+                minPrice={payload.data.minPrice}
+                maxPrice={payload.data.maxPrice}
+                attributeValues={payload.data.localAttributes}
+                searchTerm={payload.data.searchTerm}
               />
               <Container>
                 <Filters>
@@ -111,6 +121,8 @@ class Items extends Component {
                       departments={payload.data.localDepartments}
                       categories={payload.data.localCategories}
                     />
+                    <FilterAttributes />
+                    <PriceRange />
                   </FiltersList>
                 </Filters>
                 <Query
@@ -120,7 +132,11 @@ class Items extends Component {
                     departments: payload.data.localDepartments,
                     categories: payload.data.localCategories.map(category =>
                       parseFloat(category.category_id)
-                    )
+                    ),
+                    minPrice: payload.data.minPrice,
+                    maxPrice: payload.data.maxPrice,
+                    attributeValues: payload.data.localAttributes,
+                    searchTerm: payload.data.searchTerm
                   }}
                 >
                   {({ data, error, loading }) => {
@@ -134,6 +150,9 @@ class Items extends Component {
                       );
                     }
                     if (error) return <p>Error: {error.message}</p>;
+                    if (!data.products.length) {
+                      return <p>No products found...</p>
+                    }
                     return (
                       <ProductsList>
                         {data.products.map(product => (
@@ -147,6 +166,13 @@ class Items extends Component {
               <Pagination
                 page={this.props.page}
                 departments={payload.data.localDepartments}
+                categories={payload.data.localCategories.map(category =>
+                  parseFloat(category.category_id)
+                )}
+                minPrice={payload.data.minPrice}
+                maxPrice={payload.data.maxPrice}
+                attributeValues={payload.data.localAttributes}
+                searchTerm={payload.data.searchTerm}
               />
             </>
           )}

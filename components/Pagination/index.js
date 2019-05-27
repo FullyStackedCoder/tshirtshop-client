@@ -9,8 +9,8 @@ import Error from "../ErrorMessage";
 import Skeleton from "../Skeleton";
 
 const PAGINATION_QUERY = gql`
-  query PAGINATION_QUERY($departments: [Int] = [], $categories: [Int] = []) {
-    productsCount(departments: $departments, categories: $categories) {
+  query PAGINATION_QUERY($departments: [Int] = [], $categories: [Int] = [], $searchTerm: String = "", $attributeValues: [String] = [], $minPrice: Float = 0.00, $maxPrice: Float = 0.00) {
+    productsCount(departments: $departments, categories: $categories, searchTerm: $searchTerm, attributeValues: $attributeValues, minPrice: $minPrice, maxPrice: $maxPrice) {
       count
     }
   }
@@ -28,7 +28,11 @@ const Pagination = props => {
       query={PAGINATION_QUERY}
       variables={{
         departments: props.departments,
-        categories: props.categories
+        categories: props.categories,
+        minPrice: props.minPrice,
+        maxPrice: props.maxPrice,
+        attributeValues: props.attributeValues,
+        searchTerm: props.searchTerm
       }}
     >
       {({ data, loading, error }) => {
