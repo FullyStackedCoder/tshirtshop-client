@@ -173,45 +173,47 @@ class FilterAttributes extends Component {
   };
 
   render() {
-    return this.props.data.attributes.map(attribute => (
-      <SidebarStyles key={attribute.attribute_id}>
-        <div className="heading">{attribute.name}</div>
-        <ApolloConsumer>
-          {client => (
-            <AttributeValuesStyles>
-              {attribute.attributeValue.map(att =>
-                attribute.attribute_id === att.attribute.attribute_id
-                  ? this.renderButtons(attribute, att, client)
-                  : ""
-              )}
-            </AttributeValuesStyles>
-          )}
-        </ApolloConsumer>
-      </SidebarStyles>
-    ));
+    // return this.props.data.attributes.map(attribute => (
+    //   <SidebarStyles key={attribute.attribute_id}>
+    //     <div className="heading">{attribute.name}</div>
+    //     <ApolloConsumer>
+    //       {client => (
+    //         <AttributeValuesStyles>
+    //           {attribute.attributeValue.map(att =>
+    //             attribute.attribute_id === att.attribute.attribute_id
+    //               ? this.renderButtons(attribute, att, client)
+    //               : ""
+    //           )}
+    //         </AttributeValuesStyles>
+    //       )}
+    //     </ApolloConsumer>
+    //   </SidebarStyles>
+    // ));
 
-    // return (
-    //   <Query query={ALL_ATTRIBUTES_QUERY}>
-    //     {({ data, error, loading }) => {
-    //       return data.attributes.map(attribute => (
-    //         <SidebarStyles key={attribute.attribute_id}>
-    //           <div className="heading">{attribute.name}</div>
-    //           <ApolloConsumer>
-    //             {client => (
-    //               <AttributeValuesStyles>
-    //                 {attribute.attributeValue.map(att =>
-    //                   attribute.attribute_id === att.attribute.attribute_id
-    //                     ? this.renderButtons(attribute, att, client)
-    //                     : ""
-    //                 )}
-    //               </AttributeValuesStyles>
-    //             )}
-    //           </ApolloConsumer>
-    //         </SidebarStyles>
-    //       ));
-    //     }}
-    //   </Query>
-    // );
+    return (
+      <Query query={ALL_ATTRIBUTES_QUERY}>
+        {({ data, error, loading }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>Error: {error.message}</p>;
+          return data.attributes.map(attribute => (
+            <SidebarStyles key={attribute.attribute_id}>
+              <div className="heading">{attribute.name}</div>
+              <ApolloConsumer>
+                {client => (
+                  <AttributeValuesStyles>
+                    {attribute.attributeValue.map(att =>
+                      attribute.attribute_id === att.attribute.attribute_id
+                        ? this.renderButtons(attribute, att, client)
+                        : ""
+                    )}
+                  </AttributeValuesStyles>
+                )}
+              </ApolloConsumer>
+            </SidebarStyles>
+          ));
+        }}
+      </Query>
+    );
   }
 }
 
