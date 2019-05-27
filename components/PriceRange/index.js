@@ -9,7 +9,6 @@ import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 
 const SidebarStyles = styled.div`
-  font-size: 2rem;
   .heading {
     font-size: 2rem;
     font-weight: 700;
@@ -36,7 +35,7 @@ const InputStyles = styled.div`
     margin-top: -0.65rem;
     outline: none;
     position: absolute;
-    top: 50%;
+    top: 0;
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
     width: 1rem;
   }
@@ -59,23 +58,25 @@ const InputStyles = styled.div`
   .valueLabel {
     color: #aaaaaa;
     font-family: "Helvetica Neue", san-serif;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     transform: translateZ(0);
     white-space: nowrap;
   }
 
   .inputRange__label--min,
   .inputRange__label--max {
-    bottom: -1.4rem;
+    bottom: -1.6rem;
     position: absolute;
   }
 
   .inputRange__label--min {
     left: 0;
+    top: -40%;
   }
 
   .inputRange__label--max {
     right: 0;
+    top: -40%;
   }
 
   .inputRange__label--value {
