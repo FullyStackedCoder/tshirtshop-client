@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NProgress from "nprogress";
 import Router from "next/router";
 import logoImage from "../../static/tshirtshop.png";
-import Search from "../Search";
+import NewSearch from "../NewSearch";
 import UserNav from "../UserNav";
 import UserPanel from "../UserPanel";
 
@@ -72,7 +72,7 @@ const Header = () => (
           <img src={logoImage} alt="logo" className="logo" />
         </a>
       </Link>
-      <Search />
+      <NewSearch />
       <UserNav />
       <UserPanel />
     </div>
