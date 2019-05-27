@@ -18,6 +18,14 @@ const SidebarStyles = styled.div`
   }
 `;
 
+const valueLabels = styled.div`
+  color: #aaaaaa;
+  font-family: "Helvetica Neue", san-serif;
+  font-size: 1.6rem;
+  transform: translateZ(0);
+  white-space: nowrap;
+`;
+
 const GET_MINMAX_PRICE = gql`
   query GET_MINMAX_PRICE {
     findMinMaxPrice {
@@ -78,6 +86,7 @@ class PriceRange extends Component {
                 {client => (
                   <InputRange
                     formatLabel={value => `$${value}`}
+                    classNames={{valueLabel: valueLabels}}
                     minValue={data.findMinMaxPrice.min}
                     maxValue={data.findMinMaxPrice.max}
                     value={
