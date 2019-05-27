@@ -138,7 +138,6 @@ class Attributes extends Component {
   };
 
   render() {
-    console.log(this.props.payload);
     return this.props.payload.map(attribute => (
       <React.Fragment key={attribute.attribute_id}>
         <h3>{attribute.name}</h3>
