@@ -108,7 +108,7 @@ export const OldPriceTag = styled.span`
 
 export const NewProductStyles = styled.div`
   width: 100%;
-  min-height: 36rem;
+  height: 36rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
