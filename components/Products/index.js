@@ -27,6 +27,23 @@ const ALL_PRODUCTS_QUERY = gql`
   }
 `;
 
+const ALL_ATTRIBUTES_QUERY = gql`
+  query ALL_ATTRIBUTES_QUERY {
+    attributes {
+      attribute_id
+      name
+      attributeValue {
+        value
+        attribute_value_id
+        attribute {
+          name
+          attribute_id
+        }
+      }
+    }
+  }
+`;
+
 const LOCAL_STATE_QUERY = gql`
   query {
     localDepartments @client
@@ -121,7 +138,13 @@ class Items extends Component {
                       departments={payload.data.localDepartments}
                       categories={payload.data.localCategories}
                     />
-                    <FilterAttributes />
+                    <Query query={ALL_ATTRIBUTES_QUERY}>
+                      {({ data, error, loading }) => {
+                        return (
+                          <FilterAttributes data={data} />
+                        )
+                      }}
+                    </Query>
                     <PriceRange />
                   </FiltersList>
                 </Filters>

@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import { ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
 import Router from "next/router";
-import NProgress from 'nprogress';
+import NProgress from "nprogress";
 import styled from "styled-components";
 
 const AttributeValuesStyles = styled.div`
@@ -124,7 +124,9 @@ class FilterAttributes extends Component {
   attributeClickHandler = async (attribute, att, client) => {
     let updatedAttributes = [...this.state.selectedAttributes];
     if (updatedAttributes.indexOf(att.value) !== -1) {
-      updatedAttributes = updatedAttributes.filter(attribute => attribute !== att.value)
+      updatedAttributes = updatedAttributes.filter(
+        attribute => attribute !== att.value
+      );
     } else {
       updatedAttributes.push(att.value);
     }
@@ -132,17 +134,17 @@ class FilterAttributes extends Component {
     NProgress.start();
     try {
       Router.push({
-        pathname: '/products',
-      })
+        pathname: "/products"
+      });
       const res = await client.mutate({
         mutation: UPDATE_LOCAL_ATTRIBUTES_MUTATION,
         variables: { attribute: att.value }
       });
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
     NProgress.done();
-  }
+  };
 
   renderButtons = (attribute, att, client) => {
     if (attribute.attribute_id.toString() === "1") {
@@ -171,28 +173,45 @@ class FilterAttributes extends Component {
   };
 
   render() {
-    return (
-      <Query query={ALL_ATTRIBUTES_QUERY}>
-        {({ data, error, loading }) => {
-          return data.attributes.map(attribute => (
-            <SidebarStyles key={attribute.attribute_id}>
-              <div className="heading">{attribute.name}</div>
-              <ApolloConsumer>
-                {client => (
-                  <AttributeValuesStyles>
-                    {attribute.attributeValue.map(att =>
-                      attribute.attribute_id === att.attribute.attribute_id
-                        ? this.renderButtons(attribute, att, client)
-                        : ""
-                    )}
-                  </AttributeValuesStyles>
-                )}
-              </ApolloConsumer>
-            </SidebarStyles>
-          ));
-        }}
-      </Query>
-    );
+    return this.props.data.attributes.map(attribute => (
+      <SidebarStyles key={attribute.attribute_id}>
+        <div className="heading">{attribute.name}</div>
+        <ApolloConsumer>
+          {client => (
+            <AttributeValuesStyles>
+              {attribute.attributeValue.map(att =>
+                attribute.attribute_id === att.attribute.attribute_id
+                  ? this.renderButtons(attribute, att, client)
+                  : ""
+              )}
+            </AttributeValuesStyles>
+          )}
+        </ApolloConsumer>
+      </SidebarStyles>
+    ));
+
+    // return (
+    //   <Query query={ALL_ATTRIBUTES_QUERY}>
+    //     {({ data, error, loading }) => {
+    //       return data.attributes.map(attribute => (
+    //         <SidebarStyles key={attribute.attribute_id}>
+    //           <div className="heading">{attribute.name}</div>
+    //           <ApolloConsumer>
+    //             {client => (
+    //               <AttributeValuesStyles>
+    //                 {attribute.attributeValue.map(att =>
+    //                   attribute.attribute_id === att.attribute.attribute_id
+    //                     ? this.renderButtons(attribute, att, client)
+    //                     : ""
+    //                 )}
+    //               </AttributeValuesStyles>
+    //             )}
+    //           </ApolloConsumer>
+    //         </SidebarStyles>
+    //       ));
+    //     }}
+    //   </Query>
+    // );
   }
 }
 
