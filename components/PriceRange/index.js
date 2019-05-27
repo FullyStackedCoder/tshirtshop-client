@@ -18,12 +18,19 @@ const SidebarStyles = styled.div`
   }
 `;
 
-const valueLabels = styled.div`
-  color: #aaaaaa;
-  font-family: "Helvetica Neue", san-serif;
-  font-size: 1.6rem;
-  transform: translateZ(0);
-  white-space: nowrap;
+const InputStyles = styled.div`
+  .inputRange {
+    height: 4rem;
+    position: relative;
+    width: 100%;
+  }
+  .valueLabel {
+    color: #aaaaaa;
+    font-family: "Helvetica Neue", san-serif;
+    font-size: 1.6rem;
+    transform: translateZ(0);
+    white-space: nowrap;
+  }
 `;
 
 const GET_MINMAX_PRICE = gql`
@@ -84,24 +91,26 @@ class PriceRange extends Component {
               <div className="heading">Price range</div>
               <ApolloConsumer>
                 {client => (
-                  <InputRange
-                    formatLabel={value => `$${value}`}
-                    classNames={{valueLabel: "valueLabels"}}
-                    minValue={data.findMinMaxPrice.min}
-                    maxValue={data.findMinMaxPrice.max}
-                    value={
-                      this.state.value
-                        ? this.state.value
-                        : {
-                            min: data.findMinMaxPrice.min,
-                            max: data.findMinMaxPrice.max
-                          }
-                    }
-                    onChange={value => this.setState({ value })}
-                    onChangeComplete={value =>
-                      this.pricesChangedHandler(event, client, value)
-                    }
-                  />
+                  <InputStyles>
+                    <InputRange
+                      formatLabel={value => `$${value}`}
+                      classNames={{ valueLabel: "valueLabel" }}
+                      minValue={data.findMinMaxPrice.min}
+                      maxValue={data.findMinMaxPrice.max}
+                      value={
+                        this.state.value
+                          ? this.state.value
+                          : {
+                              min: data.findMinMaxPrice.min,
+                              max: data.findMinMaxPrice.max
+                            }
+                      }
+                      onChange={value => this.setState({ value })}
+                      onChangeComplete={value =>
+                        this.pricesChangedHandler(event, client, value)
+                      }
+                    />
+                  </InputStyles>
                 )}
               </ApolloConsumer>
             </SidebarStyles>
