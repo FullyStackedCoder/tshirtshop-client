@@ -11,25 +11,58 @@ exports[`<Product /> renders and matches the snapshot 1`] = `
     }
   }
 >
-  <styles__ProductStyles>
-    <img
-      alt="Test T-Shirt"
-      src="https://tshirtshop-apollo-prod.herokuapp.com/images/product.jpg"
-    />
-    <styles__Title>
-      Test T-Shirt
-    </styles__Title>
-    <styles__PriceTag>
-      $40.00
-    </styles__PriceTag>
-    <styles__OldPriceTag>
-      <s>
-        $50.00
-      </s>
-    </styles__OldPriceTag>
-    <styles__Button>
-      View Product
-    </styles__Button>
-  </styles__ProductStyles>
+  <styles__NewProductStyles>
+    <div
+      className="box-up"
+    >
+      <img
+        alt="Test T-Shirt"
+        className="img"
+        src="https://tshirtshop-apollo-prod.herokuapp.com/images/product.jpg"
+      />
+      <div
+        className="heading"
+      >
+        Test T-Shirt
+      </div>
+      <div
+        className="aSizes"
+      >
+        Available Sizes: S, M, L, XL, XXL
+      </div>
+    </div>
+    <div
+      className="box-down"
+    >
+      <div
+        className="h-bg"
+      >
+        <div
+          className="h-bg-inner"
+        />
+      </div>
+      <div
+        className="priceBox"
+      >
+        <div
+          className="oldPriceTag"
+        >
+          <s>
+            $50.00
+          </s>
+        </div>
+        <div
+          className="priceTag"
+        >
+          $40.00
+        </div>
+        <p
+          className="viewDetails"
+        >
+          View Details
+        </p>
+      </div>
+    </div>
+  </styles__NewProductStyles>
 </Link>
 `;
