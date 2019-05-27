@@ -24,12 +24,96 @@ const InputStyles = styled.div`
     position: relative;
     width: 100%;
   }
+  .inputRange__slider {
+    appearance: none;
+    background: #0590c7;
+    border: 1px solid #0590c7;
+    border-radius: 100%;
+    cursor: pointer;
+    display: block;
+    height: 1rem;
+    margin-left: -0.5rem;
+    margin-top: -0.65rem;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    width: 1rem;
+  }
+  .inputRange__slider:active {
+    transform: scale(1.3);
+  }
+  .inputRange__slider:focus {
+    box-shadow: 0 0 0 5px rgba(63, 81, 181, 0.2);
+  }
+  .inputRange--disabled .inputRange__slider {
+    background: #cccccc;
+    border: 1px solid #cccccc;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .inputRange__slider-container {
+    transition: left 0.3s ease-out;
+  }
   .valueLabel {
     color: #aaaaaa;
     font-family: "Helvetica Neue", san-serif;
     font-size: 1.6rem;
     transform: translateZ(0);
     white-space: nowrap;
+  }
+
+  .inputRange__label--min,
+  .inputRange__label--max {
+    bottom: -1.4rem;
+    position: absolute;
+  }
+
+  .inputRange__label--min {
+    left: 0;
+  }
+
+  .inputRange__label--max {
+    right: 0;
+  }
+
+  .inputRange__label--value {
+    position: absolute;
+    top: -3.2rem;
+  }
+
+  .inputRange__label-container {
+    left: -50%;
+    position: relative;
+  }
+  .inputRange__label--max .inputRange__label-container {
+    left: 50%;
+  }
+
+  .inputRange__track {
+    background: #eeeeee;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: block;
+    height: 0.3rem;
+    position: relative;
+    transition: left 0.3s ease-out, width 0.3s ease-out;
+  }
+  .inputRange--disabled .inputRange__track {
+    background: #eeeeee;
+  }
+
+  .inputRange__track--background {
+    left: 0;
+    margin-top: -0.15rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+  }
+
+  .inputRange__track--active {
+    background: #0590c7;
   }
 `;
 
@@ -94,7 +178,20 @@ class PriceRange extends Component {
                   <InputStyles>
                     <InputRange
                       formatLabel={value => `$${value}`}
-                      classNames={{ valueLabel: "valueLabel", inputRange: 'inputRange' }}
+                      classNames={{
+                        valueLabel: "valueLabel",
+                        inputRange: "inputRange",
+                        activeTrack:
+                          "inputRange__track inputRange__track--active",
+                        disabledInputRange: "inputRange inputRange--disabled",
+                        labelContainer: "inputRange__label-container",
+                        maxLabel: "inputRange__label inputRange__label--max",
+                        minLabel: "inputRange__label inputRange__label--min",
+                        slider: "inputRange__slider",
+                        sliderContainer: "inputRange__slider-container",
+                        track:
+                          "inputRange__track inputRange__track--background"
+                      }}
                       minValue={data.findMinMaxPrice.min}
                       maxValue={data.findMinMaxPrice.max}
                       value={
