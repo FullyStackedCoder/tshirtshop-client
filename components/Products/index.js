@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { adopt } from 'react-adopt';
+import { adopt } from "react-adopt";
 import styled from "styled-components";
 import Product from "../Product";
 import Pagination from "../Pagination";
@@ -114,8 +114,12 @@ const ProductsList = styled.div`
 
 const Composed = adopt({
   localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
-  allProducts: ({ render }) => <Query query={ALL_PRODUCTS_QUERY}>{render}</Query>,
-  allAttributes: ({ render }) => <Query query={ALL_ATTRIBUTES_QUERY}>{render}</Query>
+  allProducts: ({ render }) => (
+    <Query query={ALL_PRODUCTS_QUERY}>{render}</Query>
+  ),
+  allAttributes: ({ render }) => (
+    <Query query={ALL_ATTRIBUTES_QUERY}>{render}</Query>
+  )
 });
 
 class Products extends Component {
@@ -124,87 +128,92 @@ class Products extends Component {
       <Center>
         <Query query={LOCAL_STATE_QUERY}>
           {payload => (
-            <>
-              <Pagination
-                page={this.props.page}
-                departments={payload.data.localDepartments}
-                categories={payload.data.localCategories.map(category =>
-                  parseFloat(category.category_id)
-                )}
-                minPrice={payload.data.minPrice}
-                maxPrice={payload.data.maxPrice}
-                attributeValues={payload.data.localAttributes}
-                searchTerm={payload.data.searchTerm}
-              />
-              <Container>
-                <Filters>
-                  <FiltersList>
-                    <Departments departments={payload.data.localDepartments} />
-
-                    <Categories
+            <Query query={ALL_ATTRIBUTES_QUERY}>
+              {({ data, error, loading }) => {
+                return (
+                  <>
+                    <Pagination
+                      page={this.props.page}
                       departments={payload.data.localDepartments}
-                      categories={payload.data.localCategories}
+                      categories={payload.data.localCategories.map(category =>
+                        parseFloat(category.category_id)
+                      )}
+                      minPrice={payload.data.minPrice}
+                      maxPrice={payload.data.maxPrice}
+                      attributeValues={payload.data.localAttributes}
+                      searchTerm={payload.data.searchTerm}
                     />
-                    <Query query={ALL_ATTRIBUTES_QUERY}>
-                      {({ data, error, loading }) => {
-                        return (
+                    <Container>
+                      <Filters>
+                        <FiltersList>
+                          <Departments
+                            departments={payload.data.localDepartments}
+                          />
+
+                          <Categories
+                            departments={payload.data.localDepartments}
+                            categories={payload.data.localCategories}
+                          />
                           <FilterAttributes data={data} />
-                        )
-                      }}
-                    </Query>
-                    <PriceRange />
-                  </FiltersList>
-                </Filters>
-                <Query
-                  query={ALL_PRODUCTS_QUERY}
-                  variables={{
-                    offset: this.props.page * perPage - perPage,
-                    departments: payload.data.localDepartments,
-                    categories: payload.data.localCategories.map(category =>
-                      parseFloat(category.category_id)
-                    ),
-                    minPrice: payload.data.minPrice,
-                    maxPrice: payload.data.maxPrice,
-                    attributeValues: payload.data.localAttributes,
-                    searchTerm: payload.data.searchTerm
-                  }}
-                >
-                  {({ data, error, loading }) => {
-                    if (loading) {
-                      return (
-                        <ProductsList>
-                          {[...Array(6)].map((_, i) => (
-                            <Skeleton key={i} />
-                          ))}
-                        </ProductsList>
-                      );
-                    }
-                    if (error) return <p>Error: {error.message}</p>;
-                    if (!data.products.length) {
-                      return <p>No products found...</p>
-                    }
-                    return (
-                      <ProductsList>
-                        {data.products.map(product => (
-                          <Product product={product} key={product.product_id} />
-                        ))}
-                      </ProductsList>
-                    );
-                  }}
-                </Query>
-              </Container>
-              <Pagination
-                page={this.props.page}
-                departments={payload.data.localDepartments}
-                categories={payload.data.localCategories.map(category =>
-                  parseFloat(category.category_id)
-                )}
-                minPrice={payload.data.minPrice}
-                maxPrice={payload.data.maxPrice}
-                attributeValues={payload.data.localAttributes}
-                searchTerm={payload.data.searchTerm}
-              />
-            </>
+                          <PriceRange />
+                        </FiltersList>
+                      </Filters>
+                      <Query
+                        query={ALL_PRODUCTS_QUERY}
+                        variables={{
+                          offset: this.props.page * perPage - perPage,
+                          departments: payload.data.localDepartments,
+                          categories: payload.data.localCategories.map(
+                            category => parseFloat(category.category_id)
+                          ),
+                          minPrice: payload.data.minPrice,
+                          maxPrice: payload.data.maxPrice,
+                          attributeValues: payload.data.localAttributes,
+                          searchTerm: payload.data.searchTerm
+                        }}
+                      >
+                        {({ data, error, loading }) => {
+                          if (loading) {
+                            return (
+                              <ProductsList>
+                                {[...Array(6)].map((_, i) => (
+                                  <Skeleton key={i} />
+                                ))}
+                              </ProductsList>
+                            );
+                          }
+                          if (error) return <p>Error: {error.message}</p>;
+                          if (!data.products.length) {
+                            return <p>No products found...</p>;
+                          }
+                          return (
+                            <ProductsList>
+                              {data.products.map(product => (
+                                <Product
+                                  product={product}
+                                  key={product.product_id}
+                                />
+                              ))}
+                            </ProductsList>
+                          );
+                        }}
+                      </Query>
+                    </Container>
+                    <Pagination
+                      page={this.props.page}
+                      departments={payload.data.localDepartments}
+                      categories={payload.data.localCategories.map(category =>
+                        parseFloat(category.category_id)
+                      )}
+                      minPrice={payload.data.minPrice}
+                      maxPrice={payload.data.maxPrice}
+                      attributeValues={payload.data.localAttributes}
+                      searchTerm={payload.data.searchTerm}
+                    />
+                  </>
+                );
+              }}
+            </Query>
           )}
         </Query>
       </Center>
