@@ -154,7 +154,7 @@ class Products extends Component {
                             departments={payload.data.localDepartments}
                             categories={payload.data.localCategories}
                           />
-                          <FilterAttributes data={data} />
+                          <FilterAttributes data={data} payload={payload}/>
                           <PriceRange />
                         </FiltersList>
                       </Filters>
