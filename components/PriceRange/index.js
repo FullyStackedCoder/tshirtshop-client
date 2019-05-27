@@ -94,7 +94,7 @@ class PriceRange extends Component {
                   <InputStyles>
                     <InputRange
                       formatLabel={value => `$${value}`}
-                      classNames={{ valueLabel: "valueLabel" }}
+                      classNames={{ valueLabel: "valueLabel", inputRange: 'inputRange' }}
                       minValue={data.findMinMaxPrice.min}
                       maxValue={data.findMinMaxPrice.max}
                       value={
