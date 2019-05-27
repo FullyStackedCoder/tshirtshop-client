@@ -9,6 +9,7 @@ import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 
 const SidebarStyles = styled.div`
+  font-size: 2rem;
   .heading {
     font-size: 2rem;
     font-weight: 700;
