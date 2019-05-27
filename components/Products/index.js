@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import { adopt } from 'react-adopt';
 import styled from "styled-components";
 import Product from "../Product";
 import Pagination from "../Pagination";
@@ -111,7 +112,13 @@ const ProductsList = styled.div`
   }
 `;
 
-class Items extends Component {
+const Composed = adopt({
+  localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
+  allProducts: ({ render }) => <Query query={ALL_PRODUCTS_QUERY}>{render}</Query>,
+  allAttributes: ({ render }) => <Query query={ALL_ATTRIBUTES_QUERY}>{render}</Query>
+});
+
+class Products extends Component {
   render() {
     return (
       <Center>
@@ -205,5 +212,5 @@ class Items extends Component {
   }
 }
 
-export default Items;
+export default Products;
 export { LOCAL_STATE_QUERY, ALL_PRODUCTS_QUERY };
