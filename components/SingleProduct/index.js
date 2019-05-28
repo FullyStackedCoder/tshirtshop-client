@@ -72,6 +72,15 @@ const SingleProductStyles = styled.div`
   }
 `;
 
+const PriceTag = styled.span`
+  color: ${props => props.theme.primaryColor};
+  font-weight: 600;
+  padding: 5px;
+  line-height: 1;
+  font-size: 1.6rem;
+  display: inline-block;
+`;
+
 const SINGLE_PRODUCT_QUERY = gql`
   query SINGLE_PRODUCT_QUERY($id: ID!) {
     product(id: $id) {
@@ -202,7 +211,9 @@ class SingleProduct extends Component {
                 <h2 className="heading-secondary">{product.name}</h2>
                 <p>
                   <s>{oldPrice(product.price, product.discounted_price)}</s>{" "}
+                  <PriceTag>
                   {pickPrice(product.price, product.discounted_price)}
+                  </PriceTag>
                 </p>
                 <p>{product.description}</p>
                 <Attributes

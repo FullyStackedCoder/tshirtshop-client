@@ -49,24 +49,24 @@ const CloseButton = styled.button`
 `;
 
 const DELETE_CART_ITEM_MUTATION = gql`
-  mutation DELETE_CART_ITEM_MUTATION($cartId: String, $productId: ID!) {
-    removeFromCart(cartId: $cartId, productId: $productId) {
+  mutation DELETE_CART_ITEM_MUTATION($cartId: String, $productId: ID!, $attributes: String!) {
+    removeFromCart(cartId: $cartId, productId: $productId, attributes: $attributes) {
       cart_id
     }
   }
 `;
 
 const INCREMENT_CART_ITEM_MUTATION = gql`
-  mutation INCREMENT_CART_ITEM_MUTATION($cartId: String, $productId: ID!) {
-    incrementCartItem(cartId: $cartId, productId: $productId) {
+  mutation INCREMENT_CART_ITEM_MUTATION($cartId: String, $productId: ID!, $attributes: String!) {
+    incrementCartItem(cartId: $cartId, productId: $productId, attributes: $attributes) {
       cart_id
     }
   }
 `;
 
 const DECREMENT_CART_ITEM_MUTATION = gql`
-  mutation DECREMENT_CART_ITEM_MUTATION($cartId: String, $productId: ID!) {
-    decrementCartItem(cartId: $cartId, productId: $productId) {
+  mutation DECREMENT_CART_ITEM_MUTATION($cartId: String, $productId: ID!, $attributes: String!) {
+    decrementCartItem(cartId: $cartId, productId: $productId, attributes: $attributes) {
       cart_id
     }
   }
@@ -79,7 +79,8 @@ const handleCartItemDelete = async (event, client, props) => {
       mutation: DELETE_CART_ITEM_MUTATION,
       variables: {
         cartId: props.cartItem.cart_id,
-        productId: props.cartItem.product.product_id
+        productId: props.cartItem.product.product_id,
+        attributes: props.cartItem.attributes
       },
       refetchQueries: [
         {
@@ -101,7 +102,8 @@ const handleCartItemIncrement = async (event, client, props) => {
       mutation: INCREMENT_CART_ITEM_MUTATION,
       variables: {
         cartId: props.cartItem.cart_id,
-        productId: props.cartItem.product.product_id
+        productId: props.cartItem.product.product_id,
+        attributes: props.cartItem.attributes
       },
       refetchQueries: [
         {
@@ -124,7 +126,8 @@ const handleCartItemDecrement = async (event, client, props) => {
         mutation: DECREMENT_CART_ITEM_MUTATION,
         variables: {
           cartId: props.cartItem.cart_id,
-          productId: props.cartItem.product.product_id
+          productId: props.cartItem.product.product_id,
+          attributes: props.cartItem.attributes
         },
         refetchQueries: [
           {
