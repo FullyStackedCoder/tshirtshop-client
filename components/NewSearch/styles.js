@@ -66,7 +66,7 @@ const StyledSearch = styled.div`
 
   @media only screen and (max-width: 43.75em) {
     order: 1;
-    flex: 0 0 102%;
+    flex: 0 0 100%;
     margin-left: -1rem;
   }
 `;
