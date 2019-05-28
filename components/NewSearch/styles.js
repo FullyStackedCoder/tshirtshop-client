@@ -21,7 +21,7 @@ const StyledSearch = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-  input {
+    input {
       font-family: inherit;
       font-size: inherit;
       color: inherit;
@@ -32,7 +32,7 @@ const StyledSearch = styled.div`
       width: 100%;
       transition: all 0.2s;
       position: relative;
-    margin-right: -3rem;
+      margin-right: -3rem;
       &:focus {
         outline: none;
         border: 1px solid ${props => props.theme.primaryColor};
@@ -46,6 +46,10 @@ const StyledSearch = styled.div`
       &::-webkit-input-placeholder {
         font-weight: 100;
         color: #ccc;
+      }
+
+      @media only screen and (max-width: 43.75em) {
+        margin-right: -4rem;
       }
     }
   }
@@ -61,9 +65,10 @@ const StyledSearch = styled.div`
   }
 
   @media only screen and (max-width: 43.75em) {
-        order: 1;
-        flex: 0 0 110%;
-    }
+    order: 1;
+    flex: 0 0 102%;
+    margin-left: -1rem;
+  }
 `;
 
 export { StyledSearch };
