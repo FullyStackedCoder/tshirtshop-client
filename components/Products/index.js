@@ -92,7 +92,7 @@ const ProductsList = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
   grid-gap: 3rem;
   @media only screen and (max-width: 68.75em) {
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
   }
   @media only screen and (max-width: 56.25em) {
     grid-template-columns: 0.5fr 0.5fr;
