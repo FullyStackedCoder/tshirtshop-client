@@ -28,23 +28,6 @@ const ALL_PRODUCTS_QUERY = gql`
   }
 `;
 
-const ALL_ATTRIBUTES_QUERY = gql`
-  query ALL_ATTRIBUTES_QUERY {
-    attributes {
-      attribute_id
-      name
-      attributeValue {
-        value
-        attribute_value_id
-        attribute {
-          name
-          attribute_id
-        }
-      }
-    }
-  }
-`;
-
 const LOCAL_STATE_QUERY = gql`
   query {
     localDepartments @client
@@ -83,8 +66,12 @@ const Container = styled.div`
     grid-template-columns: 2fr 5fr;
     grid-gap: 3rem;
   }
-  @media only screen and (max-width: 41.5em) {
-    grid-template-columns: 3fr 5fr;
+  @media only screen and (max-width: 43.75em) {
+    grid-template-columns: 4fr 6fr;
+    grid-gap: 2rem;
+  }
+  @media only screen and (max-width: 37.5em) {
+    grid-template-columns: 0.45fr 0.55fr;
     grid-gap: 2rem;
   }
 `;
@@ -107,20 +94,13 @@ const ProductsList = styled.div`
   @media only screen and (max-width: 68.75em) {
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   }
-  @media only screen and (max-width: 50.25em) {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  @media only screen and (max-width: 56.25em) {
+    grid-template-columns: 0.5fr 0.5fr;
+  }
+  @media only screen and (max-width: 37.5em) {
+    grid-template-columns: 1fr;
   }
 `;
-
-const Composed = adopt({
-  localState: ({ render }) => <Query query={LOCAL_STATE_QUERY}>{render}</Query>,
-  allProducts: ({ render }) => (
-    <Query query={ALL_PRODUCTS_QUERY}>{render}</Query>
-  ),
-  allAttributes: ({ render }) => (
-    <Query query={ALL_ATTRIBUTES_QUERY}>{render}</Query>
-  )
-});
 
 class Products extends Component {
   render() {
@@ -128,92 +108,81 @@ class Products extends Component {
       <Center>
         <Query query={LOCAL_STATE_QUERY}>
           {payload => (
-            <Query query={ALL_ATTRIBUTES_QUERY}>
-              {({ data, error, loading }) => {
-                return (
-                  <>
-                    <Pagination
-                      page={this.props.page}
-                      departments={payload.data.localDepartments}
-                      categories={payload.data.localCategories.map(category =>
-                        parseFloat(category.category_id)
-                      )}
-                      minPrice={payload.data.minPrice}
-                      maxPrice={payload.data.maxPrice}
-                      attributeValues={payload.data.localAttributes}
-                      searchTerm={payload.data.searchTerm}
-                    />
-                    <Container>
-                      <Filters>
-                        <FiltersList>
-                          <Departments
-                            departments={payload.data.localDepartments}
-                          />
+            <>
+              <Pagination
+                page={this.props.page}
+                departments={payload.data.localDepartments}
+                categories={payload.data.localCategories.map(category =>
+                  parseFloat(category.category_id)
+                )}
+                minPrice={payload.data.minPrice}
+                maxPrice={payload.data.maxPrice}
+                attributeValues={payload.data.localAttributes}
+                searchTerm={payload.data.searchTerm}
+              />
+              <Container>
+                <Filters>
+                  <FiltersList>
+                    <Departments departments={payload.data.localDepartments} />
 
-                          <Categories
-                            departments={payload.data.localDepartments}
-                            categories={payload.data.localCategories}
-                          />
-                          <FilterAttributes data={data} payload={payload}/>
-                          <PriceRange />
-                        </FiltersList>
-                      </Filters>
-                      <Query
-                        query={ALL_PRODUCTS_QUERY}
-                        variables={{
-                          offset: this.props.page * perPage - perPage,
-                          departments: payload.data.localDepartments,
-                          categories: payload.data.localCategories.map(
-                            category => parseFloat(category.category_id)
-                          ),
-                          minPrice: payload.data.minPrice,
-                          maxPrice: payload.data.maxPrice,
-                          attributeValues: payload.data.localAttributes,
-                          searchTerm: payload.data.searchTerm
-                        }}
-                      >
-                        {({ data, error, loading }) => {
-                          if (loading) {
-                            return (
-                              <ProductsList>
-                                {[...Array(6)].map((_, i) => (
-                                  <Skeleton key={i} />
-                                ))}
-                              </ProductsList>
-                            );
-                          }
-                          if (error) return <p>Error: {error.message}</p>;
-                          if (!data.products.length) {
-                            return <p>No products found...</p>;
-                          }
-                          return (
-                            <ProductsList>
-                              {data.products.map(product => (
-                                <Product
-                                  product={product}
-                                  key={product.product_id}
-                                />
-                              ))}
-                            </ProductsList>
-                          );
-                        }}
-                      </Query>
-                    </Container>
-                    <Pagination
-                      page={this.props.page}
+                    <Categories
                       departments={payload.data.localDepartments}
-                      categories={payload.data.localCategories.map(category =>
-                        parseFloat(category.category_id)
-                      )}
-                      minPrice={payload.data.minPrice}
-                      maxPrice={payload.data.maxPrice}
-                      attributeValues={payload.data.localAttributes}
-                      searchTerm={payload.data.searchTerm}
+                      categories={payload.data.localCategories}
                     />
-                  </>
-                );
-              }}
-            </Query>
+                    <FilterAttributes />
+                    <PriceRange />
+                  </FiltersList>
+                </Filters>
+                <Query
+                  query={ALL_PRODUCTS_QUERY}
+                  variables={{
+                    offset: this.props.page * perPage - perPage,
+                    departments: payload.data.localDepartments,
+                    categories: payload.data.localCategories.map(category =>
+                      parseFloat(category.category_id)
+                    ),
+                    minPrice: payload.data.minPrice,
+                    maxPrice: payload.data.maxPrice,
+                    attributeValues: payload.data.localAttributes,
+                    searchTerm: payload.data.searchTerm
+                  }}
+                >
+                  {({ data, error, loading }) => {
+                    if (loading) {
+                      return (
+                        <ProductsList>
+                          {[...Array(6)].map((_, i) => (
+                            <Skeleton key={i} />
+                          ))}
+                        </ProductsList>
+                      );
+                    }
+                    if (error) return <p>Error: {error.message}</p>;
+                    if (!data.products.length) {
+                      return <p>No products found...</p>;
+                    }
+                    return (
+                      <ProductsList>
+                        {data.products.map(product => (
+                          <Product product={product} key={product.product_id} />
+                        ))}
+                      </ProductsList>
+                    );
+                  }}
+                </Query>
+              </Container>
+              <Pagination
+                page={this.props.page}
+                departments={payload.data.localDepartments}
+                categories={payload.data.localCategories.map(category =>
+                  parseFloat(category.category_id)
+                )}
+                minPrice={payload.data.minPrice}
+                maxPrice={payload.data.maxPrice}
+                attributeValues={payload.data.localAttributes}
+                searchTerm={payload.data.searchTerm}
+              />
+            </>
           )}
         </Query>
       </Center>

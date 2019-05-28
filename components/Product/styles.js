@@ -108,7 +108,7 @@ export const OldPriceTag = styled.span`
 
 export const NewProductStyles = styled.div`
   width: 100%;
-  height: 40rem;
+  height: 38rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -118,8 +118,30 @@ export const NewProductStyles = styled.div`
   border: 1px solid ${props => props.theme.offWhite};
   box-shadow: ${props => props.theme.bs};
   text-align: left;
+  @media only screen and (max-width: 971px) {
+    height: 52rem;
+  }
+  @media only screen and (max-width: 920px) {
+    height: 48rem;
+  }
+  @media only screen and (max-width: 840px) {
+    height: 46rem;
+  }
+  @media only screen and (max-width: 780px) {
+    height: 44rem;
+  }
+  @media only screen and (max-width: 740px) {
+    height: 40rem;
+  }
+  @media only screen and (max-width: 700px) {
+    height: 38rem;
+  }
+  @media only screen and (max-width: 37.5em) {
+    height: 50rem;
+  }
   .box-up {
     width: 100%;
+    height: 80%;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -182,7 +204,7 @@ export const NewProductStyles = styled.div`
     /* ease-out */
     position: absolute;
     width: 100%;
-    bottom: -20px;
+    bottom: -2rem;
     opacity: 0;
   }
   .h-bg {
@@ -261,6 +283,9 @@ export const NewProductStyles = styled.div`
   }
   &:hover .heading {
     transform: translateY(-120%);
+    @media only screen and (max-width: 998px) {
+      transform: translateY(-180%);
+    }
   }
   &:hover .aSizes {
     -webkit-transition-delay: 300ms;
@@ -268,6 +293,9 @@ export const NewProductStyles = styled.div`
     transition-delay: 300ms;
     bottom: 1rem;
     opacity: 1;
+    @media only screen and (max-width: 998px) {
+      bottom: 1rem;
+    }
   }
   &:hover .h-bg {
     left: 0px;
@@ -283,7 +311,7 @@ export const NewProductStyles = styled.div`
     align-items: center;
   }
   &:hover .priceBox .priceTag {
-    color: ${props => props.theme.offWhite}
+    color: ${props => props.theme.offWhite};
   }
   &:hover .priceBox .oldPriceTag {
     display: none;
