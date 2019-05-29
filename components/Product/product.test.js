@@ -29,8 +29,8 @@ describe('<Product />', () => {
 
   it('renders and displays title and price tag', () => {
     const wrapper = shallow(<ProductComponent product={fakeProduct} />);
-    const PriceTag = wrapper.find('styles__PriceTag');
+    const PriceTag = wrapper.find('.priceTag');
     expect(PriceTag.children().text()).toBe('$40.00');
-    expect(wrapper.find('styles__Title').text()).toBe(fakeProduct.name);
+    expect(wrapper.find('.heading').text()).toBe(fakeProduct.name);
   });
 });
